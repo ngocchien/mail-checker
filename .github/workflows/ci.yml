@@ -34,26 +34,31 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const { data: releases } = await github.repos.listReleases({
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            });
-            return releases.find(release => release.tag_name === '${{ github.ref_name }}');
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const tag = '${{ github.ref_name }}';
+  
+            const release = await github.repos.listReleases({
+              owner,
+              repo
+            }).then(({ data }) => data.find(release => release.tag_name === tag));
+  
+            return release ? 'true' : 'false';
       
       - name: Create Release
-        if: steps.check_release.outputs.id == ''
+        if: steps.check_release.outputs.result == 'false'
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
         with:
           tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
+          release_name: mail_checker-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
           draft: false
           prerelease: false
-
-
+  
       - name: Upload Binary
+        if: steps.check_release.outputs.result == 'false'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
