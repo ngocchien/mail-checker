@@ -15,7 +15,8 @@ func TestGetAmscCookie_Success(t *testing.T) {
 			"Set-Cookie": {"amsc=testCookie; path=/;"},
 		},
 	}
-	err, amscCookie := getAmscCookie(res)
+	mailChecker := &microsoftMail{}
+	err, amscCookie := mailChecker.getAmscCookie(res)
 	if err != nil {
 		t.Fatalf("expected no error, got %v", err)
 	}
@@ -31,7 +32,8 @@ func TestGetAmscCookie_Error(t *testing.T) {
 			"Set-Cookie": {""},
 		},
 	}
-	err, _ := getAmscCookie(res)
+	mailChecker := &microsoftMail{}
+	err, _ := mailChecker.getAmscCookie(res)
 	if err != ErrMicrosoftGetAmscCookieError {
 		t.Fatalf("expected ErrMicrosoftGetAmscCookieError, got %v", err)
 	}

@@ -64,7 +64,7 @@ func (h *microsoftMail) Check(email string) (status Status) {
 	return getStatusById(StatusIdLive)
 }
 
-func getAmscCookie(res *http.Response) (err error, amscCookie string) {
+func (h *microsoftMail) getAmscCookie(res *http.Response) (err error, amscCookie string) {
 	cookies := res.Header.Get("Set-Cookie")
 	re := regexp.MustCompile(`(?s)amsc=(.*?);`)
 	cookiesMatches := re.FindStringSubmatch(cookies)
@@ -108,7 +108,7 @@ func (h *microsoftMail) getAmscAndCanaryCookie() (err error, amscCookie string, 
 	}
 	defer res.Body.Close()
 
-	err, amscCookie = getAmscCookie(res)
+	err, amscCookie = h.getAmscCookie(res)
 	if err != nil {
 		return err, amscCookie, canary
 	}
