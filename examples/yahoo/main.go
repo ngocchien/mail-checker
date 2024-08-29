@@ -7,10 +7,10 @@ import (
 
 func main() {
 	emails := []string{
-		"chiennn0104@hotmail.com",
-		"chiennn0104123123123@hotmail.com",
+		"boy_codon_cangirl@yahoo.com",
+		"boy_codon_cangirlxx1010100101k11k@yahoo.com",
 	}
-	checker := mail_checker.New(mail_checker.MailKindMicrosoft, mail_checker.Proxy{})
+	checker := mail_checker.New(mail_checker.MailKindYahoo, mail_checker.Proxy{})
 	for _, email := range emails {
 		status := checker.Check(email)
 		log.Infof("Email: %s, status: %+v", email, status)
