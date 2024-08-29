@@ -21,8 +21,19 @@ const (
 const (
 	MailKindMicrosoft        MailKind = "microsoft"
 	MailKindGoogle           MailKind = "google"
+	MailKindYahoo            MailKind = "yahoo"
 	dialProtocol                      = "tcp"
 	hotmailUrlSignup                  = "https://signup.live.com/signup"
 	hotmailUrlCheckAvailable          = "https://signup.live.com/API/CheckAvailableSigninNames"
-	httpClientTimeoutDefault          = 5 * time.Second
+
+	yahooCreateAccountUrl                       = "https://login.yahoo.com/account/create"
+	yahooCheckerUrlApi                          = "https://login.yahoo.com/account/module/create?validateField=userId"
+	yahooKeyCheckExists                         = "userId"
+	yahooTextDetectUnavailableMail              = "IDENTIFIER_EXISTS"
+	yahooTextDetectNotUnavailableMail           = "IDENTIFIER_NOT_AVAILABLE"
+	yahooTextDetectReservedWordPresentMail      = "RESERVED_WORD_PRESENT"
+	yahooTextDetectErrorLengthTooShort          = "LENGTH_TOO_SHORT"
+	yahooTextDetectErrorSomeSpecialCharNotAllow = "SOME_SPECIAL_CHARACTERS_NOT_ALLOWED"
+
+	httpClientTimeoutDefault = 5 * time.Second
 )
