@@ -59,7 +59,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/yourusername/mail_checker"
+	"github.com/ngocchien/mail_checker"
 )
 
 func main() {
