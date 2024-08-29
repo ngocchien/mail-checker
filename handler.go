@@ -55,6 +55,11 @@ func getStatusById(id StatusId) (status Status) {
 			Id:   id,
 			Name: StatusNameCheckError,
 		}
+	case StatusIdFormatInvalid:
+		status = Status{
+			Id:   id,
+			Name: StatusNameFormatInvalid,
+		}
 	}
 	return status
 }
@@ -64,6 +69,10 @@ func New(mailKind MailKind, proxy Proxy) Checker {
 	switch mailKind {
 	case MailKindMicrosoft:
 		return &microsoftMail{
+			client: client,
+		}
+	case MailKindYahoo:
+		return &yahooMail{
 			client: client,
 		}
 	default:
